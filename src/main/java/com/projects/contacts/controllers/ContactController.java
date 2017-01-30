@@ -1,5 +1,7 @@
 package com.projects.contacts.controllers;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import com.projects.contacts.contact.Contact;
@@ -25,19 +27,41 @@ public class ContactController {
 	}
 	
 	@Post("contact/create")
-	public void save(Contact contact) {
+	public void create(Contact contact) {
 		contactDAO.save(contact);
+		
+		result.include("mensagem", "Adicionando com sucesso");		
 		result.redirectTo(HomeController.class).index();
 	}
 	
-	@Get("/contact/edit")	
-	public void edit() {
+	@Get("/contact/edit/{contact.id}")
+	public void edit(Contact contact) {
+		
+		List<Contact> selectedContact = contactDAO.edit(contact);
+		
+		result.include("foo", contact);
+		
+		if(!selectedContact.isEmpty()) {			
+			for (Contact item: selectedContact) {
+				result.include("contactId", item.getId());
+				result.include("contactName", item.getName());
+				result.include("contactEmail", item.getEmail());
+				
+				if(!item.getPhone().isEmpty()) {
+					result.include("contactPhone", item.getPhone());
+				}
+			}
+		}
+		
 	}
 	
 	@Post("/contact/remove")
 	public void remove(Contact contact) {
-		contactDAO.remove(contact);
+		if(contact == null) {
+			return;
+		}
 		
+		contactDAO.remove(contact);
 		result.redirectTo(HomeController.class).index();
 	}
 }

@@ -2,32 +2,34 @@
 <html>
 <body>
 	<h1>My Contacts WebApp</h1>
+	
+	<c:if test="${not empty message }">
+		<p>${mensagem}</p>	
+	</c:if>
 
 	<table>
 		<thead>
 			<tr>
-				<td>Lista de Contatos</td>
+				<th>Nome</th>
+				<th>Email</th>
+				<th>Telefone</th>
+				<th>Ações</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>Nome</td>
-				<td>Email</td>
-				<td>Telefone</td>
-				<td>Ações</td>
-			</tr>
-			<c:forEach var="contact" items="${contacts}">
+
+			<c:forEach var="contact" items="${contactsList}">
 				<tr>
 					<td>${contact.name}</td>
 					<td>${contact.email}</td>
 					<td>${contact.phone}</td>
 					<td>
 						<ul>
-							<li><a href='/contact/edit'>Editar</a></li>
+							<li><a href='${linkTo[ContactController].edit(contact)}'>Editar</a></li>
 							<li>
 								<form action='${linkTo[ContactController].remove()}' method='post'>
-									<input type='hidden' name='${contact.id}'>
-									<button>Remover</button>
+									<input type='hidden' name='contact.id' value='${contact.id}' />
+									<input type='submit' value='Remover' />
 								</form>
 							</li>
 						</ul>

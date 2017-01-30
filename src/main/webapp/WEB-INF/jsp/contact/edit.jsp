@@ -5,12 +5,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action='${linkTo[ContactController].create}' method='post' name='save-contact'>
+	${foo} blah
+	<form action='' method='post' name='edit-contact'>
 		<fieldset>
-			<legend>Adicionar novo contato</legend>
+			<legend>Editar</legend>
 			<label>
 				Nome:
-				<input type='text' name='contact.name'/>
+				<input type='text' name='contact.name' value=''/>
 			</label>
 			<label>
 				Email:

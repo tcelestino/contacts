@@ -16,21 +16,9 @@ public class HomeController {
 	private Result result;
 	@Inject
 	private ContactDAO contactDAO;
-
-	private Contact contact;
-	
-	public HomeController() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	public HomeController(Contact contact) {
-		this.contact = contact;
-	}
-	
 	
 	@Get("/")
 	public void index() {
-		result.include("contacts", contactDAO.getAll());
+		result.include("contactsList", contactDAO.getAll());
 	}
-	
 }
