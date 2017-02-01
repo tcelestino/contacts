@@ -19,6 +19,6 @@ public class HomeController {
 	
 	@Get("/")
 	public void index() {
-		result.include("contactsList", contactDAO.getAll());
+		result.include("contactsList", contactDAO.all());
 	}
 }

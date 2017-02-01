@@ -14,53 +14,41 @@ import br.com.caelum.vraptor.Result;
 
 @Controller
 public class ContactController {
-	
+
 	@Inject
 	private Result result;
-	
+
 	@Inject
 	private ContactDAO contactDAO;
-	
+
 	@Get("/contact/add")
 	public void form() {
-		
+
 	}
-	
+
 	@Post("contact/create")
 	public void create(Contact contact) {
 		contactDAO.save(contact);
-		
-		result.include("mensagem", "Adicionando com sucesso");		
+
+		result.include("mensagem", "Criado com sucesso");
 		result.redirectTo(HomeController.class).index();
 	}
-	
+
 	@Get("/contact/edit/{contact.id}")
 	public void edit(Contact contact) {
-		
-		List<Contact> selectedContact = contactDAO.edit(contact);
-		
-		result.include("foo", contact);
-		
-		if(!selectedContact.isEmpty()) {			
-			for (Contact item: selectedContact) {
-				result.include("contactId", item.getId());
-				result.include("contactName", item.getName());
-				result.include("contactEmail", item.getEmail());
-				
-				if(!item.getPhone().isEmpty()) {
-					result.include("contactPhone", item.getPhone());
-				}
-			}
-		}
-		
+
+		Contact findContact = contactDAO.findBy(contact.getId());
+
+		result.include("contact", findContact);
+
 	}
-	
+
 	@Post("/contact/remove")
 	public void remove(Contact contact) {
 		if(contact == null) {
 			return;
 		}
-		
+
 		contactDAO.remove(contact);
 		result.redirectTo(HomeController.class).index();
 	}

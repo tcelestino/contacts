@@ -21,12 +21,6 @@ public class ContactDAO {
 		session.getTransaction().commit();
 	}
 
-	
-	public List<Contact> edit(Contact contact) {
-		List<Contact> contactInfo = getOneContact(contact.getId());
-		return contactInfo;
-	}
-
 	public boolean remove(Contact contact) {
 		String hql = "DELETE FROM agenda WHERE id = :id";
 		Transaction transaction = session.beginTransaction();
@@ -40,22 +34,15 @@ public class ContactDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Contact> getAll() {
+	public List<Contact> all() {
 		Criteria createCriteria = session.createCriteria(Contact.class);
 
 		return createCriteria.list();
 	}
 	
-	@SuppressWarnings("unchecked")
-	private List<Contact> getOneContact(Long id) {
-		
-		return session.createSQLQuery("SELECT c.* FROM agenda c WHERE c.id =" + id).list();
-		
-//		String hql = "SELECT C.* FROM agenda C WHERE C.id = :id";
-//		session.beginTransaction();
-//		Query query = session.createQuery(hql).setParameter("id", id).;
-//		
-//		return query.list();
+	public Contact findBy(Long id) {
+		Query query = session.createQuery("SELECT c FROM " + Contact.class.getSimpleName() + " c WHERE c.id =" + id);
+		return (Contact) query.uniqueResult();
 	}
 
 }
