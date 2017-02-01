@@ -3,6 +3,7 @@ package com.projects.contacts.controllers;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 
 import com.projects.contacts.contact.Contact;
 import com.projects.contacts.contact.ContactDAO;
@@ -11,6 +12,7 @@ import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.validator.Validator;
 
 @Controller
 public class ContactController {
@@ -20,6 +22,8 @@ public class ContactController {
 
 	@Inject
 	private ContactDAO contactDAO;
+	@Inject
+	private Validator validator;
 
 	@Get("/contact/add")
 	public void form() {
@@ -27,7 +31,9 @@ public class ContactController {
 	}
 
 	@Post("contact/create")
-	public void create(Contact contact) {
+	public void create(@Valid Contact contact) {
+		validator.onErrorUsePageOf(this).form();
+
 		contactDAO.save(contact);
 
 		result.include("mensagem", "Criado com sucesso");

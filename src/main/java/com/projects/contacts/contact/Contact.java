@@ -6,8 +6,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name="agenda")
@@ -17,10 +19,13 @@ public class Contact {
 	private long id;
 	
 	@NotNull
+	@NotEmpty
+	@Size(min = 3)
 	@Length(max = 42)
 	private String name;
 	
 	@NotNull
+	@NotEmpty
 	@Length(max = 320)
 	private String email;
 	

@@ -2,6 +2,7 @@ package com.projects.contacts.contact;
 
 import java.util.List;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
 import org.hibernate.Criteria;
@@ -11,9 +12,11 @@ import org.hibernate.Transaction;
 
 import com.projects.contacts.contact.Contact;
 
+@RequestScoped
 public class ContactDAO {
 
-	@Inject Session session;
+	@Inject 
+	Session session;
 
 	public void save(Contact contact) {
 		session.beginTransaction();

@@ -16,14 +16,19 @@
 				Email:
 				<input type='email' name='contact.email'/>
 			</label>
-			
+
 			<label>
 				Telefone:
 				<input type='tel' name='contact.phone'/>
 			</label>
 			<input type='submit' value='Salvar'/>
 		</fieldset>
-	
 	</form>
+
+	<c:if test="${not empty errors}">
+		<c:forEach var="error" items="${errors}">
+			${error.category} - ${error.message}<br />
+       </c:forEach>
+    </c:if>
 </body>
 </html>
