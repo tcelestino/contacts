@@ -15,7 +15,7 @@ import com.projects.contacts.contact.Contact;
 @RequestScoped
 public class ContactDAO {
 
-	@Inject 
+	@Inject
 	Session session;
 
 	public void save(Contact contact) {
@@ -25,7 +25,7 @@ public class ContactDAO {
 	}
 
 	public boolean remove(Contact contact) {
-		String hql = "DELETE FROM agenda WHERE id = :id";
+		String hql = "DELETE FROM " + Contact.class.getSimpleName() + " WHERE id = :id";
 		Transaction transaction = session.beginTransaction();
 		int result = session.createQuery(hql)
 					.setParameter("id", contact.getId())
@@ -42,10 +42,26 @@ public class ContactDAO {
 
 		return createCriteria.list();
 	}
-	
+
 	public Contact findBy(Long id) {
 		Query query = session.createQuery("SELECT c FROM " + Contact.class.getSimpleName() + " c WHERE c.id =" + id);
 		return (Contact) query.uniqueResult();
+	}
+
+	public boolean update(Contact contact) {
+		String hql = "UPDATE " + Contact.class.getSimpleName() + " c SET c.name = :name, c.email = :email, c.phone = :phone WHERE id = :id";
+		Transaction transaction = session.beginTransaction();
+
+		int result = session.createQuery(hql)
+					.setParameter("id", contact.getId())
+					.setParameter("name", contact.getName())
+					.setParameter("email", contact.getEmail())
+					.setParameter("phone", contact.getPhone())
+					.executeUpdate();
+
+		transaction.commit();
+
+		return result > 0;
 	}
 
 }

@@ -17,18 +17,25 @@ import br.com.caelum.vraptor.validator.Validator;
 @Controller
 public class ContactController {
 
-	@Inject
 	private Result result;
+	private ContactDAO contactDAO;
+	private Validator validator;
+
+	@Deprecated
+	public ContactController() {
+	}
 
 	@Inject
-	private ContactDAO contactDAO;
-	@Inject
-	private Validator validator;
+	public ContactController(ContactDAO contactDAO, Validator validator, Result result) {
+		this.contactDAO = contactDAO;
+		this.validator = validator;
+		this.result = result;
+	}
 
 	@Get("/contact/add")
 	public void form() {
-
 	}
+
 
 	@Post("contact/create")
 	public void create(@Valid Contact contact) {
@@ -43,9 +50,21 @@ public class ContactController {
 	@Get("/contact/edit/{contact.id}")
 	public void edit(Contact contact) {
 
-		Contact findContact = contactDAO.findBy(contact.getId());
+		Contact editContact = contactDAO.findBy(contact.getId());
 
-		result.include("contact", findContact);
+		result.include("contact", editContact);
+	}
+
+	@Post("/contact/edit")
+	public void updateContact(Contact contact) {
+		boolean wasUpdate = contactDAO.update(contact);
+
+		if(wasUpdate) {
+			result.include("mensagem", "Editado com sucesso");
+			result.redirectTo(HomeController.class).index();
+		} else {
+			result.redirectTo(this).form();
+		}
 
 	}
 
