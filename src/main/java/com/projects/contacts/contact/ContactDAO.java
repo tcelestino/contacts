@@ -43,9 +43,9 @@ public class ContactDAO {
 		return createCriteria.list();
 	}
 
-	public Contact findBy(Long id) {
-		Query query = session.createQuery("SELECT c FROM " + Contact.class.getSimpleName() + " c WHERE c.id =" + id);
-		return (Contact) query.uniqueResult();
+	public Optional<Contact> findBy(Long id) {
+		Contact result = (Contact) session.createQuery("SELECT c FROM " + Contact.class.getSimpleName() + " c WHERE c.id =" + id).setMaxResults(1).uniqueResult();
+		return Optiona.fromNullabel(result);
 	}
 
 	public boolean update(Contact contact) {
