@@ -50,9 +50,11 @@ public class ContactController {
 	@Get("/contact/edit/{contact.id}")
 	public void edit(Contact contact) {
 
-		Contact editContact = contactDAO.findBy(contact.getId());
-
-		result.include("contact", editContact);
+		Optional<Contact> result = contactDAO.findBy(contact.getId());
+		
+		if(result.isPresent()) {
+			result.include("contact", editContact);
+		}
 	}
 
 	@Post("/contact/edit")
