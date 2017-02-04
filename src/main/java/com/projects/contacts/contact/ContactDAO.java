@@ -10,6 +10,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.google.common.base.Optional;
 import com.projects.contacts.contact.Contact;
 
 @RequestScoped
@@ -45,7 +46,7 @@ public class ContactDAO {
 
 	public Optional<Contact> findBy(Long id) {
 		Contact result = (Contact) session.createQuery("SELECT c FROM " + Contact.class.getSimpleName() + " c WHERE c.id =" + id).setMaxResults(1).uniqueResult();
-		return Optiona.fromNullabel(result);
+		return Optional.fromNullable(result);
 	}
 
 	public boolean update(Contact contact) {

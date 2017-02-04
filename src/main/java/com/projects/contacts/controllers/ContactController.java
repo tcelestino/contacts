@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import com.google.common.base.Optional;
 import com.projects.contacts.contact.Contact;
 import com.projects.contacts.contact.ContactDAO;
 
@@ -50,10 +51,10 @@ public class ContactController {
 	@Get("/contact/edit/{contact.id}")
 	public void edit(Contact contact) {
 
-		Optional<Contact> result = contactDAO.findBy(contact.getId());
+		Optional<Contact> contactFound = contactDAO.findBy(contact.getId());
 		
-		if(result.isPresent()) {
-			result.include("contact", editContact);
+		if(contactFound.isPresent()) {
+			result.include("contact", contactFound.get());
 		}
 	}
 
