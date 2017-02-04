@@ -4,3 +4,4 @@ target/
 .project
 classes
 /bin/
+src/main/resources/hibernate.cfg.xml
