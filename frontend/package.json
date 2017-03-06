@@ -1,0 +1,27 @@
+{
+  "name": "contacts",
+  "version": "1.0.0",
+  "description": "my contacts with VRaptor",
+  "main": "app.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/tcelestino/contacts"
+  },
+  "keywords": [
+    "vrpator",
+    "java"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "test",
+    "tests"
+  ],
+  "author": "Tiago Celestino",
+  "license": "MIT"
+}
