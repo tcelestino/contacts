@@ -1,7 +1,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.0/css/foundation.min.css">
+<title>My Contacts WebApp</title>
 <body>
-	<h1>My Contacts WebApp</h1>
+	<header class='top-bar'>
+		<h1 class='top-bar-left top-bar-title'>My Contacts WebApp</h1>
+		
+		<nav>
+			<ul class='menu'>
+				<li><a href=''>Add contact</a></li>
+			</ul>
+		</nav>
+	
+	</header>
 
 	<c:if test="${not empty message }">
 		<p>${mensagem}</p>

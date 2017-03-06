@@ -5,4 +5,4 @@ target/
 classes
 /bin/
 src/main/resources/hibernate.cfg.xml
-/node_modules
+node_modules/
