@@ -6,4 +6,5 @@ classes
 /bin/
 src/main/resources/hibernate.cfg.xml
 *.map
+src/main/webapp/assets/css/*
 node_modules/
