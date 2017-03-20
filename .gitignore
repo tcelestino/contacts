@@ -5,4 +5,5 @@ target/
 classes
 /bin/
 src/main/resources/hibernate.cfg.xml
+*.map
 node_modules/
